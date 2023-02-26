@@ -19,7 +19,7 @@ let delay = Number(refs.delay.value);
 let step = Number(refs.step.value);
 
   for (let i=0; i < amount; i+=1) {
-    notificationDelay = delay + step * i;
+    let notificationDelay = delay + step * i;
     createPromise(i+1, notificationDelay);
     }
 }
