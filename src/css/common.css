@@ -18,8 +18,8 @@ img {
 }
 
 .timer {
-  padding-top: 30px;
-  padding-left: 30px;
+  margin-top: 30px;
+  margin-left: 15px;
   display: flex;
   gap: 25px;
 }

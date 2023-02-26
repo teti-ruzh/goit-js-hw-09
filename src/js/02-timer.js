@@ -12,6 +12,7 @@ const refs = {
 };
 
 refs.button.disabled = true;
+let targetDate;
 
 const options = {
   enableTime: true,
@@ -19,13 +20,13 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
     if (selectedDates[0].getTime() < Date.now()) {
       Notify.failure('Please choose a date in the future');
       refs.button.disabled = true;
       return;
     } else {
       refs.button.disabled = false;
+      targetDate = selectedDates[0].getTime();
     }
   },
 };
@@ -37,16 +38,14 @@ refs.button.addEventListener('click', onStartClick);
 function onStartClick(event) {
   event.preventDefault;
   refs.button.disabled = true;
-  const targetTime = fp.selectedDates[0].getTime();
 
   setInterval(() => {
     const currentTime = Date.now();
-    const deltaTime = targetTime - currentTime;
+    const deltaTime = targetDate - currentTime;
     if (deltaTime <= 0) {
       return;
-    };
+};
     const timerData = convertMs(deltaTime);
-    console.log(timerData);
     updateTimerFields(timerData);
   }, 1000);
 }
@@ -71,8 +70,6 @@ function convertMs(ms) {
 }
 
 function addLeadingZero(value) {
-  if (value > 99) {
-    return String(value).padStart(String(value).length, "0")}
     return String(value).padStart(2, "0");
 };
 
@@ -82,6 +79,4 @@ function updateTimerFields(timerData) {
   refs.minutes.textContent = timerData.minutes;
   refs.seconds.textContent = timerData.seconds;
 };
-
-
 
